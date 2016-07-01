@@ -36,7 +36,7 @@ class Notify {
     });
     var button = div.getElementsByTagName('button')[0];
     button.addEventListener('click', () => {
-      this.equestInstall(button, data.packageURL);
+      this.requestInstall(button, data.packageURL);
      });
      if(data.isInstalled) {
        this.markAsInstalled(button);
