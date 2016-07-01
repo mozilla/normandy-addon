@@ -1,0 +1,106 @@
+body {
+  height: 320px;
+  width: 400px;
+}
+
+h1 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.addon-box {
+  align-items: center;
+  border-top: gray solid 1px;
+  display: flex;
+  height: 30%;
+  justify-content: space-around;
+  width: 400px;
+}
+
+.addon-box div {
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addon-box h2, .addon-box h3 {
+  font-weight: normal;
+  margin: auto;
+  width: 100%;
+}
+
+.addon-box .image-box {
+  height: 100%;
+  width: 20%;
+}
+
+.addon-box .image-box img {
+  display: block;
+  margin: auto;
+}
+
+.addon-box .inner-box-1 {
+  height: 100%;
+  width: 60%;
+}
+
+.addon-box .inner-box-2 {
+  height: 100%;
+  margin: 0;
+  width: 15%;
+}
+
+.addon-box .inner-box-2 a {
+  padding: auto;
+  text-decoration: none;
+  width: 100%;
+}
+
+.switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+/* Hide default HTML checkbox */
+.switch button {
+  display:none;
+}
+
+/* The slider */
+.slider {
+  background-color: #ccc;
+  border-radius: 34px;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.slider:before {
+  background-color: white;
+  border-radius: 50%;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 26px;
+}
+
+button:disabled + .slider {
+  background-color: #4CAF50;
+}
+
+button:focus + .slider {
+  box-shadow: 0 0 1px #4CAF50;
+}
+
+button:disabled + .slider:before {
+  transform: translateX(26px);
+}
