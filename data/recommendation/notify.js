@@ -1,7 +1,6 @@
 class Notify {
   constructor() {
     self.port.on('data', recs => {
-      console.log(recs);
       this.clearRecommendations();
       this.addRecommendations(recs);
     });
