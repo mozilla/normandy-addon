@@ -29,7 +29,8 @@ class Notify {
     info.setAttribute('href', data.infoURL);
     info.setAttribute('target', '_blank');
     var button = div.getElementsByTagName('button')[0];
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
       this.requestInstall(button, data.packageURL);
      });
      if(data.isInstalled) {
@@ -47,13 +48,23 @@ class Notify {
     return dupDiv;
   }
 
-  markAsInstalled(button) {
+  markAsInstalling(button) {
     button.setAttribute('disabled', true);
+    button.setAttribute('class', 'installing');
+  }
+
+  markAsInstalled(button) {
+    button.setAttribute('class', 'installed');
   }
 
   requestInstall(button, url) {
+    button.id = url;
     self.port.emit('install', url);
-    this.markAsInstalled(button);
+    this.markAsInstalling(button);
+    var successMessage = 'installed' + url;
+    self.port.on(successMessage, () => {
+      this.markAsInstalled(button);
+    });
   }
 }
 

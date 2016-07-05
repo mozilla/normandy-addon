@@ -1,8 +1,3 @@
-body {
-  height: 320px;
-  width: 400px;
-}
-
 h1 {
   font-size: 1em;
   font-weight: normal;
@@ -93,14 +88,24 @@ h1 {
   width: 26px;
 }
 
-button:disabled + .slider {
+@keyframes loading {
+  0%   {background-color: #ccc;}
+  50%  {background-color: #FC3;}
+  100% {background-color: #ccc;}
+}
+
+button.installed + .slider {
   background-color: #4CAF50;
 }
 
-button:focus + .slider {
-  box-shadow: 0 0 1px #4CAF50;
+button.installing + .slider {
+  animation: loading 0.5s infinite;
 }
 
-button:disabled + .slider:before {
+button.installing + .slider:before {
+  transform: translateX(16px);
+}
+
+button.installed + .slider:before {
   transform: translateX(26px);
 }
