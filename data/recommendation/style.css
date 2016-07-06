@@ -1,6 +1,9 @@
 h1 {
   font-size: 1em;
-  font-weight: normal;
+}
+
+h2 {
+  font-weight: bold;
 }
 
 a, a:visited {
@@ -9,9 +12,9 @@ a, a:visited {
 
 .addon-box {
   align-items: center;
-  border-top: gray solid 1px;
+  border-top: lightgray solid 1px;
   display: flex;
-  height: 80px;
+  height: 100px;
   justify-content: space-around;
   width: 400px;
 }
