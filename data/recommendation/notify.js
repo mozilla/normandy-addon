@@ -20,24 +20,6 @@ class Notify {
     }
   }
 
-  //replace default inner-html values
-  fillInValues(div, data) {
-    div.querySelector('.name').innerHTML = data.name;
-    div.querySelector('.description').innerHTML = data.description;
-    div.querySelector('.image').setAttribute('src', data.imageURL);
-    var info = div.querySelector('.info');
-    info.setAttribute('href', data.infoURL);
-    info.setAttribute('target', '_blank');
-    var button = div.getElementsByTagName('button')[0];
-    button.addEventListener('click', event => {
-      event.preventDefault();
-      this.requestInstall(button, data.packageURL);
-    });
-    if(data.isInstalled) {
-      this.markAsInstalled(button);
-    }
-  }
-
   createNewBox() {
     var templateDiv = document.getElementById('template-div');
     var dupDiv = templateDiv.cloneNode(true);
@@ -48,23 +30,61 @@ class Notify {
     return dupDiv;
   }
 
-  markAsInstalling(button) {
+  //replace default inner-html values
+  fillInValues(div, data) {
+    div.querySelector('.name').innerHTML = data.name;
+    div.querySelector('.description').innerHTML = data.description;
+    div.querySelector('.image').setAttribute('src', data.imageURL);
+    var info = div.querySelector('.info');
+    info.setAttribute('href', data.infoURL);
+    info.setAttribute('target', '_blank');
+    var button = div.getElementsByTagName('button')[0];
+    button.id = data.packageURL;
+    button.addEventListener('click', () => {
+      this.handleClick(button, data);
+    });
+    if(data.isInstalled) {
+      this.buttonShowInstalled(button);
+    }
+  }
+
+  buttonShowInstalling(button) {
     button.setAttribute('disabled', true);
     button.setAttribute('class', 'installing');
   }
 
-  markAsInstalled(button) {
+  buttonShowInstalled(button) {
     button.setAttribute('class', 'installed');
+    button.removeAttribute('disabled');
   }
 
-  requestInstall(button, url) {
-    button.id = url;
-    self.port.emit('install', url);
-    this.markAsInstalling(button);
-    var successMessage = 'installed' + url;
+  buttonShowUninstalled(button) {
+    button.removeAttribute('class');
+    button.removeAttribute('disabled');
+  }
+
+  requestChange(command, button, data) {
+    self.port.emit(command, data);
+    this.buttonShowInstalling(button);
+    var successMessage = command + data.packageURL;
     self.port.on(successMessage, () => {
-      this.markAsInstalled(button);
+      if(command === 'install') {
+        this.buttonShowInstalled(button);
+        data.isInstalled = true;
+      }
+      else {
+        this.buttonShowUninstalled(button);
+        data.isInstalled = false;
+      }
     });
+  }
+
+  handleClick(button, data) {
+    var command = 'install';
+    if(data.isInstalled) {
+      command = 'uninstall';
+    }
+    this.requestChange(command, button, data);
   }
 }
 
