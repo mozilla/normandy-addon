@@ -29,13 +29,13 @@ class Notify {
     info.setAttribute('href', data.infoURL);
     info.setAttribute('target', '_blank');
     var button = div.getElementsByTagName('button')[0];
-    button.addEventListener('click', (event) => {
+    button.addEventListener('click', event => {
       event.preventDefault();
       this.requestInstall(button, data.packageURL);
-     });
-     if(data.isInstalled) {
-       this.markAsInstalled(button);
-     }
+    });
+    if(data.isInstalled) {
+      this.markAsInstalled(button);
+    }
   }
 
   createNewBox() {
@@ -68,4 +68,4 @@ class Notify {
   }
 }
 
-var notify = new Notify();
+new Notify();

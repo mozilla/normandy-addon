@@ -3,11 +3,15 @@ h1 {
   font-weight: normal;
 }
 
+a, a:visited {
+  color: #0095dd;
+}
+
 .addon-box {
   align-items: center;
   border-top: gray solid 1px;
   display: flex;
-  height: 30%;
+  height: 80px;
   justify-content: space-around;
   width: 400px;
 }
@@ -53,9 +57,9 @@ h1 {
 
 .switch {
   display: inline-block;
-  height: 34px;
+  height: 20px;
   position: relative;
-  width: 60px;
+  width: 50px;
 }
 
 /* Hide default HTML checkbox */
@@ -66,7 +70,7 @@ h1 {
 /* The slider */
 .slider {
   background-color: #ccc;
-  border-radius: 34px;
+  border-radius: 20px;
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -79,19 +83,13 @@ h1 {
 .slider:before {
   background-color: white;
   border-radius: 50%;
-  bottom: 4px;
+  bottom: 2px;
   content: "";
-  height: 26px;
-  left: 4px;
+  height: 16px;
+  left: 2px;
   position: absolute;
   transition: .4s;
-  width: 26px;
-}
-
-@keyframes loading {
-  0%   {background-color: #ccc;}
-  50%  {background-color: #FC3;}
-  100% {background-color: #ccc;}
+  width: 16px;
 }
 
 button.installed + .slider {
@@ -99,13 +97,13 @@ button.installed + .slider {
 }
 
 button.installing + .slider {
-  animation: loading 0.5s infinite;
+  background-color: #FC3;
 }
 
 button.installing + .slider:before {
-  transform: translateX(16px);
+  transform: translateX(22px);
 }
 
 button.installed + .slider:before {
-  transform: translateX(26px);
+  transform: translateX(30px);
 }
