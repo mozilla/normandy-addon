@@ -1,23 +1,28 @@
 class Notify {
   constructor() {
     self.port.on('data', recs => {
-      this.clearRecommendations();
-      this.addRecommendations(recs);
+      this.recs = recs;
+      this.clearAllRecommendations();
+      this.showAllRecommendations();
     });
   }
 
-  clearRecommendations() {
+  clearAllRecommendations() {
     var recDiv = document.getElementById('recs');
     while(recDiv.firstChild) {
       recDiv.removeChild(recDiv.firstChild);
     }
   }
 
-  addRecommendations(recs) {
-    for(var rec of recs) {
+  addRecommendations(startIndex, endIndex) {
+    for(var i = startIndex; i < endIndex; i++) {
       var box = this.createNewBox();
-      this.fillInValues(box, rec);
+      this.fillInValues(box, this.recs[i]);
     }
+  }
+
+  showAllRecommendations() {
+    this.addRecommendations(0, this.recs.length);
   }
 
   createNewBox() {
@@ -35,13 +40,9 @@ class Notify {
     div.querySelector('.name').innerHTML = data.name;
     div.querySelector('.description').innerHTML = data.description;
     div.querySelector('.image').setAttribute('src', data.imageURL);
-    var info = div.querySelector('.info');
-    info.setAttribute('href', data.infoURL);
-    info.setAttribute('target', '_blank');
-    var button = div.getElementsByTagName('button')[0];
-    button.id = data.packageURL;
+    var button = div.getElementsByTagName('label')[0];
     button.addEventListener('click', () => {
-      this.handleClick(button, data);
+      this.handleInstallClick(button, data);
     });
     if(data.isInstalled) {
       this.buttonShowInstalled(button);
@@ -49,21 +50,22 @@ class Notify {
   }
 
   buttonShowInstalling(button) {
-    button.setAttribute('disabled', true);
-    button.setAttribute('class', 'installing');
+    button.parentNode.setAttribute('class', 'switch installing');
   }
 
   buttonShowInstalled(button) {
-    button.setAttribute('class', 'installed');
-    button.removeAttribute('disabled');
+    var input = button.parentNode.getElementsByTagName('input')[0];
+    input.setAttribute('checked', 'checked');
+    button.parentNode.setAttribute('class', 'switch installed');
   }
 
   buttonShowUninstalled(button) {
-    button.removeAttribute('class');
-    button.removeAttribute('disabled');
+    var input = button.parentNode.getElementsByTagName('input')[0];
+    input.removeAttribute('checked');
+    button.parentNode.setAttribute('class', 'switch uninstalled');
   }
 
-  requestChange(command, button, data) {
+  requestInstallChange(command, button, data) {
     self.port.emit(command, data);
     this.buttonShowInstalling(button);
     var successMessage = command + data.packageURL;
@@ -79,12 +81,12 @@ class Notify {
     });
   }
 
-  handleClick(button, data) {
+  handleInstallClick(button, data) {
     var command = 'install';
     if(data.isInstalled) {
       command = 'uninstall';
     }
-    this.requestChange(command, button, data);
+    this.requestInstallChange(command, button, data);
   }
 }
 
