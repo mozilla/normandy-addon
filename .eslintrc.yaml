@@ -14,4 +14,6 @@ globals:
   exports: true
   uneval: false
   crypto: true
+  document: true
+  self: true
   TextEncoder: true
