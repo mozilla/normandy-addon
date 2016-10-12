@@ -10,9 +10,10 @@ const buildStudyTitle = studyName => {
 const buildParticipateButton = (buttonText, buttonClasses) => {
   const text = buttonText || `Try ${self.options.addonName}`;
   return yo`
-  <button id="install-addon" class=${buttonClasses || 'primary'}>
-    ${text}
-  </button>`;
+    <button id="install-addon" class="${buttonClasses || 'primary'}">
+      ${text}
+    </button>
+  `;
 };
 
 // Build the list of authors
@@ -34,12 +35,12 @@ const authorsList = buildAuthorsList(self.options.authors);
 
 // Append header & button
 const headerElement = document.getElementById('study-header');
-      headerElement.appendChild(studyTitle);
-      headerElement.appendChild(participateButton);
+headerElement.appendChild(studyTitle);
+headerElement.appendChild(participateButton);
 
 // Append the list of authors
 const authorsElement = document.getElementById('authors');
-      authorsElement.appendChild(authorsList);
+authorsElement.appendChild(authorsList);
 
 
 // Fill in simple text throughout body content

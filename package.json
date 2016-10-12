@@ -9,7 +9,7 @@
   "repository": "https://github.com/mozilla/normandy-addon",
   "scripts": {
     "test": "jpm test",
-    "webpack": "node_modules/.bin/webpack data/consent-page.js data/dist/consent-page.js",
+    "webpack": "webpack data/consent-page.js data/dist/consent-page.js",
     "build": "npm run webpack && jpm xpi"
   },
   "engines": {
