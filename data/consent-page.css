@@ -21,7 +21,7 @@ body {
   padding: 0 10px;
 }
 
-.title-container {
+#study-header {
   align-items: center;
   border-bottom: 1px solid var(--in-content-box-border-color);
   display: flex;
@@ -30,12 +30,12 @@ body {
   position: relative;
 }
 
-.title {
+h1 {
   flex: 1;
   margin-bottom: 0;
 }
 
-.title::before {
+h1::before {
   background: url('../images/small-firefox-logo@2x.png') no-repeat left center;
   background-size: 57px 59px;
   content: '';
@@ -47,16 +47,25 @@ body {
   width: 57px;
 }
 
-.button {
+button {
+  border: 0px;
   height: 40px;
   margin: 0;
   padding: 0 15px;
 }
 
-.button:hover {
+button.primary:hover {
   cursor: pointer;
 }
 
-.button.success {
+button.disabled, button.disabled:hover {
+  background-color: #ccc;
+}
+
+button.success, button.success:hover {
   background-color: rgb(87, 189, 53);
+}
+
+span.addonName {
+  font-weight: 700;
 }
