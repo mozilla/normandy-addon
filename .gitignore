@@ -1,3 +1,4 @@
 node_modules/
+/data/dist/*
 /recipe-client.xpi
 npm-debug.log
